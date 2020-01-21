@@ -34,8 +34,7 @@ enum sending_mode_t : uint8_t{
 
 
 
-
-class Janus_slave_t
+class Base_Janus_slave_t
 {
     private:
         Decoder* decoder;
@@ -59,6 +58,7 @@ class Janus_slave_t
         std::vector<uint8_t>* output_data;
         std::vector<uint8_t> input_data;
         std::vector<uint8_t> decoded_data;
+
         
 
         esp_err_t start_nvs();
@@ -75,17 +75,15 @@ class Janus_slave_t
         void send_welcome_message();
 
         message_t receive();
-        void act(id_t cmd, bool broadcast = false);
-        void act_broadcast(id_t cmd);
+        void act(Janus_commands::id_t cmd, bool broadcast = false);
+        void act_broadcast(Janus_commands::id_t cmd);
         void respond();
 
-        // Command_handler cmd_handler();
-
     public:
-        Janus_slave_t(Decoder* Janus_decoder, 
+        Base_Janus_slave_t(Decoder* Janus_decoder, 
             Janus_slave_type_t type, 
-            std::map<id_t, command_t>& comms = Janus_commands::Janus_default_commands,
-            std::map<std::string, id_t>& ids = Janus_commands::Janus_default_command_ids);
+            std::map<Janus_commands::id_t, Janus_commands::command_t>& comms = Janus_commands::Janus_default_commands,
+            std::map<std::string, Janus_commands::id_t>& ids = Janus_commands::Janus_default_command_ids);
 
         void connect();
         void run();
