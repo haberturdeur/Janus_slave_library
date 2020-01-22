@@ -13,16 +13,9 @@ namespace Janus_commands{
         {"session", 0x5}
     };
 
-    class BaseResult {
-        public:
-            virtual int getType() = 0;
-    };
+    
 
-    class StateResult : public BaseResult{
-        public:
-            int getType() { return Janus_default_command_ids["read"];};
-            uint8_t state;
-    };
+    
 
     class SessionResult : public BaseResult{
         public:

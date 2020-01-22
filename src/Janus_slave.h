@@ -15,6 +15,10 @@ const char *nvs_name_space = "Janus";
 const char *session_number_nvs_key = "session";
 const char *last_address_nvs_key = "address";
 
+
+
+
+
 enum Janus_slave_type_t:uint8_t {
     OMNI_ULTRA,
 
