@@ -17,7 +17,7 @@ void Command_handler::setInput(input_t* in){
 }
 
 BaseResult* Command_handler::run(id_t id, input_t* in){
-    return commands_[id]->Execute((in==NULL) ? input : in);
+    return commands_[id]->Execute((in==nullptr) ? input : in);
 }
 
 BaseResult* Command_handler::run(std::string name, input_t* in){
@@ -32,5 +32,5 @@ std::string Command_handler::getName(id_t id){
     for (std::map<std::string, id_t>::iterator it = names_.begin(); it != names_.end(); ++it)
             if(it->second == id)
                 return it->first;
-    return 0;
+    return "error";
 }

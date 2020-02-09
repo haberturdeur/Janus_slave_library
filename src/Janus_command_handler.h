@@ -1,5 +1,4 @@
 #pragma once
-
 #include <vector>
 #include <memory>
 #include <map>
@@ -22,6 +21,8 @@ enum{
     char_r,
     bool_r,
     templated_r,
+    session_r,
+    addr_r,
     max_r
 };
 
@@ -41,8 +42,48 @@ class templated_result : public BaseResult{
     public:
         uint8_t getType(){ return templated_r;};
         T getValue(){return value;};
-    private:
         T value;
+};
+
+class u32Result : public BaseResult {
+	public:
+		uint8_t getType() { return u32_r; };
+		uint32_t getValue() { return value; };
+		void setValue(uint32_t v) {
+			value = v;
+		};
+    private:
+		uint32_t value = 0;
+};
+
+class AddressResult : public BaseResult{
+    public:
+        uint8_t getType(){return addr_r;}
+        uint8_t getValue(){return value;}
+    protected:
+        void setValue(uint8_t v){value = v;}
+    private:
+        uint8_t value;
+};
+
+class SessionResult : public BaseResult{
+    public:
+        uint8_t getType(){return session_r;}
+        uint64_t getValue(){return value;}
+    protected:
+        void setValue(uint8_t v){value = v;}
+    private:
+        uint64_t value;
+};
+
+class Janus_command_test: public Janus_command_base{
+public:
+	~Janus_command_test() = default;
+	BaseResult* Execute(input_t* in) {
+		u32_result result;
+		u32_result* result_p = &result;
+		result_p->value = (uint32_t)2;
+		return (static_cast<BaseResult*>(result_p)); };
 };
 
 
@@ -51,8 +92,8 @@ class Command_handler{
         void store(Janus_command_base* cmd, id_t cmd_id, std::string cmd_name);
         void store(std::map<id_t, Janus_command_base*>* ids, std::map<std::string, id_t>* names);
         void setInput(input_t* in);
-        BaseResult* run(id_t id, input_t* in = NULL);
-        BaseResult* run(std::string name, input_t* in = NULL);
+        BaseResult* run(id_t id, input_t* in = nullptr);
+        BaseResult* run(std::string name, input_t* in = nullptr);
         id_t getId(std::string name);
         std::string getName(id_t id);
     private:
@@ -66,3 +107,10 @@ class Command_handler{
         };
         input_t* input;
 };
+
+
+
+
+
+
+
