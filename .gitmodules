@@ -1,0 +1,4 @@
+[submodule ".\\lib\\Janus_decoder_lib"]
+	path = .\\lib\\Janus_decoder_lib
+	url = https://github.com/haberturdeur/Janus_decoder_lib.git
+	branch = dev

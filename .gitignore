@@ -35,3 +35,5 @@ lib/Janus_decoder_lib
 
 *_old.cpp
 *_old.h
+
+main.cpp
